@@ -4,6 +4,8 @@ THEOS_TARGET_NAME := iphone
 
 SDKTARGET ?= armv7-apple-darwin11
 SDKBINPATH ?= $(THEOS)/toolchain/$(THEOS_PLATFORM_NAME)/$(THEOS_TARGET_NAME)/bin
+# TODO: Figure out if hardcoding "/iphone/" in _THEOS_PLATFORM_LIPO's path is a good idea or not
+_THEOS_PLATFORM_LIPO = $(THEOS)/toolchain/$(THEOS_PLATFORM_NAME)/iphone/bin/armv7-apple-darwin11-lipo
 
 _THEOS_TARGET_CC := clang
 _THEOS_TARGET_CXX := clang++
