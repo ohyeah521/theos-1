@@ -37,6 +37,11 @@ after-all::
 
 before-clean::
 
+_THEOS_CLEAN_CLEANS_PACKAGES ?= $(_THEOS_TRUE)
+ifeq ($(call __theos_bool,$(_THEOS_CLEAN_CLEANS_PACKAGES)),$(_THEOS_TRUE))
+internal-clean:: clean-packages
+endif
+
 internal-clean::
 	$(ECHO_CLEANING)rm -rf "$(subst $(_THEOS_OBJ_DIR_EXTENSION),,$(THEOS_OBJ_DIR))"$(ECHO_END)
 
