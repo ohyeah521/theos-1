@@ -61,7 +61,13 @@ export THEOS_PROJECT_DIR
 
 export PATH := $(THEOS_BIN_PATH):$(PATH)
 
+ifneq ($(wildcard ~/.theosrc),)
+ifneq ($(_THEOS_RC_WARNED),1)
+$(info $(shell printf "\e[0;33mRules included from ~/.theosrc may cause your project to be non-portable!\e[m"))
+export _THEOS_RC_WARNED := 1
+endif
 -include ~/.theosrc
+endif
 
 _THEOS_FINAL_PACKAGE := $(_THEOS_FALSE)
 
