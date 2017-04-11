@@ -9,14 +9,11 @@ ifeq ($(LOCAL_INSTALL_PATH),)
 	LOCAL_INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries
 endif
 
-_LOCAL_USE_SUBSTRATE = $(or $($(THEOS_CURRENT_INSTANCE)_USE_SUBSTRATE),$(_THEOS_TARGET_DEFAULT_USE_SUBSTRATE),$(_THEOS_TRUE))
 ifeq ($(call __theos_bool,$(_LOCAL_USE_SUBSTRATE)),$(_THEOS_TRUE))
 ifneq ($(THEOS_VENDOR_LIBRARY_PATH),)
 _THEOS_INTERNAL_LDFLAGS += -F$(THEOS_VENDOR_LIBRARY_PATH)
 endif
 _THEOS_INTERNAL_LDFLAGS += -framework CydiaSubstrate
-else
-_THEOS_INTERNAL_LOGOSFLAGS += -c generator=internal
 endif
 
 include $(THEOS_MAKE_PATH)/instance/library.mk
