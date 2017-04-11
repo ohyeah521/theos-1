@@ -1,30 +1,36 @@
+#ifndef __has_feature
+	#define __has_feature(feature) (0)
+#endif
+#ifndef __has_extension
+	#define __has_extension(extension) (0)
+#endif
+
 #ifdef DEBUG
 	#define __DEBUG__
 #endif
 
 #ifdef __OBJC__
-	#import <_Prefix/NullabilityCompat.h>
 
-	#ifndef THEOS_SWIFT
-		#import <Foundation/Foundation.h>
-
-		#ifdef TARGET_OS_SIMULATOR
-			#define _THEOS_IS_SIMULATOR TARGET_OS_SIMULATOR
-		#else
-			#define _THEOS_IS_SIMULATOR TARGET_IPHONE_SIMULATOR
-		#endif
-
-		#if TARGET_IPHONE || _THEOS_IS_SIMULATOR
-			#import <UIKit/UIKit.h>
-			#import <_Prefix/IOSWebKitCompatHacks.h>
-		#endif
-
-		#if TARGET_MACOSX
-			#import <Cocoa/Cocoa.h>
-			#import <AppKit/AppKit.h>
-		#endif
+	#ifndef __clang__
+		#define weak assign
+		#define strong retain
+		#define instancetype id
+		#define nullable
 	#endif
 
-	#import <_Prefix/HBLog.h>
-	#import <_Prefix/IOSMacros.h>
+	#import <Foundation/Foundation.h>
+
+	#ifndef __clang__
+		// Fix old GCC versions not identifying the correct response type on [[NSDictionary alloc] initWithContentsOfFile:...] and other similar calls
+		#define THEOS_WORKAROUND_ALLOC(type) @interface type() + (type *)alloc; @end
+		THEOS_WORKAROUND_ALLOC(NSDictionary);
+		THEOS_WORKAROUND_ALLOC(NSMutableDictionary);
+		THEOS_WORKAROUND_ALLOC(NSArray);
+		THEOS_WORKAROUND_ALLOC(NSMutableArray);
+		#undef THEOS_WORKAROUND_ALLOC
+		// Workaround NS_AVAILABLE being used in enums, by disabling entirely :(
+		#undef NS_AVAILABLE
+		#define NS_AVAILABLE(osx, ios)
+	#endif
+
 #endif
