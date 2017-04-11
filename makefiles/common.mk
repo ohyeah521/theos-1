@@ -46,9 +46,13 @@ endif
 THEOS_MAKE_PATH := $(THEOS)/makefiles
 THEOS_BIN_PATH := $(THEOS)/bin
 THEOS_LIBRARY_PATH := $(THEOS)/lib
+ifneq ($(wildcard $(THEOS)/vendor/lib/.),)
 THEOS_VENDOR_LIBRARY_PATH := $(THEOS)/vendor/lib
+endif
 THEOS_INCLUDE_PATH := $(THEOS)/include
+ifneq ($(wildcard $(THEOS)/vendor/include/.),)
 THEOS_VENDOR_INCLUDE_PATH := $(THEOS)/vendor/include
+endif
 THEOS_FALLBACK_INCLUDE_PATH := $(THEOS)/include/_fallback
 THEOS_MODULE_PATH := $(THEOS)/mod
 THEOS_SDKS_PATH := $(THEOS)/sdks
