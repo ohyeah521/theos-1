@@ -16,11 +16,9 @@
 		#define strong retain
 		#define instancetype id
 		#define nullable
-	#endif
 
-	#import <Foundation/Foundation.h>
+		#import <Foundation/Foundation.h>
 
-	#ifndef __clang__
 		// Fix old GCC versions not identifying the correct response type on [[NSDictionary alloc] initWithContentsOfFile:...] and other similar calls
 		#define THEOS_WORKAROUND_ALLOC(type) @interface type() + (type *)alloc; @end
 		THEOS_WORKAROUND_ALLOC(NSDictionary);
