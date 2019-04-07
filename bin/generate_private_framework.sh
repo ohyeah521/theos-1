@@ -23,11 +23,11 @@ mkdir -p "$destination_framework"
 # I can't YAML
 (
 	echo '---'
-	echo 'archs: [ armv7, armv7s, arm64 ]'
+	echo 'archs: [ armv7, armv7s, arm64, arm64e ]'
 	echo 'platform: ios'
 	echo "install-name: /System/Library/PrivateFrameworks/$framework/$framework_name"
 	echo "exports:"
-	echo '  - archs: [ armv7, armv7s, arm64 ]'
+	echo '  - archs: [ armv7, armv7s, arm64, arm64e ]'
 	printf '    symbols: [ '
 	nm -gUj "$fallback_framework_path/$framework/$framework_name" | sort | uniq | tr '\n' ',' | sed -e 's/,$/ ]/g' -e 's/,/, /g'
 	echo '...'
